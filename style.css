@@ -1,0 +1,139 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  background-color: white;
+}
+
+#home-screen {
+  height: 600px;
+  width: 800px;
+  border: solid black 1px;
+}
+
+#name-container {
+  height: 200px;
+  border: solid blue 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#name-title {
+}
+
+#name-input {
+  font-size: 50px;
+  font-family: DJB I love a Ginger;
+  height: 80px;
+  width: 300px;
+}
+
+#sex-container {
+  height: 200px;
+  border: solid blue 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#sex-buttons-container {
+  height: 100px;
+  width: 250px;
+  border: solid black 1px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.title {
+  font-size: 50px;
+  font-family: Museo Slab;
+  padding: 20px;
+}
+
+.button {
+  height: 70px;
+  width: 70px;
+  font-size: 60px;
+}
+
+.button:hover {
+  background-color: red;
+}
+
+.button:active {
+  background-color: red;
+}
+
+#check-container {
+  height: 200px;
+  border: solid blue 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#check {
+  height: 80px;
+  width: 200px;
+  font-size: 50px;
+}
+
+@font-face {
+font-family: DJB I love a Ginger;
+src: url(font.ttf);
+}
+
+#application {
+  height: 600px;
+  width: 800px;
+  border: solid black 1px;
+}
+
+#title-bar {
+  height: 100px;
+  border: solid black 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#chart-container {
+  height: 500px;
+  border: blue solid 1px;
+  display: flex;
+  position: relative;
+}
+
+#given-name {
+  height: 50px;
+  width: 150px;
+  border: solid green 1px;
+}
+
+.bar {
+  height: 40px;
+  width: 10px;
+  border: black solid 3px;
+  position: absolute;
+  bottom: 40px;
+}
+
+#back {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
