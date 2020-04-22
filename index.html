@@ -7,6 +7,7 @@
     <title>names</title>
     <link href='style.css' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="papaparse.min.js"></script>
     <script type="text/javascript" src="index.js"></script>
   </head>
   <body onload="showHomeScreen()">
@@ -15,8 +16,13 @@
         <div id="name-title" class="title">
           Imię
         </div>
-        <input id="name-input">
+        <input id="name-input" class="name">
         </input>
+        <div id="feedback-name-container">
+          <div id="feedback-name" class="feedback">
+            Tego imienia nie dostało żadne, lub tylko 1 dziecko. Wyszukaj inne imię.
+          </div>
+        </div>
       </div>
       <div id="sex-container">
         <div id="sex-title" class="title">
@@ -30,6 +36,11 @@
             M
           </button>
         </div>
+        <div id="feedback-sex-container">
+          <div id="feedback-sex" class="feedback">
+            Wybierz płeć
+          </div>
+        </div>
       </div>
       <div id="check-container">
         <button id="check">
@@ -40,10 +51,16 @@
     <div id="application">
       <div id="title-bar">
         <img id="back" src="back.png"/>
-        <div id='given-name'>
+        <div id="given-name" class="name">
         </div>
       </div>
       <div id="chart-container">
+        <div id="axis-x" class='axis'>
+        </div>
+        <div id="axis-y-container">
+          <div id="axis-y" class='axis'>
+          </div>
+        </div>
       </div>
     </div>
   </body>

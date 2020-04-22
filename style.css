@@ -15,12 +15,10 @@ body {
 #home-screen {
   height: 600px;
   width: 800px;
-  border: solid black 1px;
 }
 
 #name-container {
   height: 200px;
-  border: solid blue 1px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,15 +29,12 @@ body {
 }
 
 #name-input {
-  font-size: 50px;
-  font-family: DJB I love a Ginger;
   height: 80px;
   width: 300px;
 }
 
 #sex-container {
   height: 200px;
-  border: solid blue 1px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -47,62 +42,61 @@ body {
 }
 
 #sex-buttons-container {
-  height: 100px;
+  height: 70px;
   width: 250px;
-  border: solid black 1px;
   display: flex;
   align-items: center;
   justify-content: space-around;
 }
 
 .title {
-  font-size: 50px;
-  font-family: Museo Slab;
-  padding: 20px;
+  font-size: 30px;
+  font-family: Arial;
+  padding: 10px;
+  color: grey;
 }
 
 .button {
   height: 70px;
   width: 70px;
   font-size: 60px;
+  font-family: A Day Without Sun;
+  font-weight: bold;
+  padding-top: 12px;
 }
 
 .button:hover {
-  background-color: red;
-}
-
-.button:active {
-  background-color: red;
+  padding-top: 7px;
 }
 
 #check-container {
   height: 200px;
-  border: solid blue 1px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 #check {
-  height: 80px;
+  height: 60px;
   width: 200px;
-  font-size: 50px;
+  font-size: 30px;
+  font-family: Arial;
+  color: grey;
 }
 
 @font-face {
-font-family: DJB I love a Ginger;
-src: url(font.ttf);
+font-family: A Day Without Sun;
+src: url(font.otf);
 }
 
 #application {
   height: 600px;
   width: 800px;
-  border: solid black 1px;
 }
 
 #title-bar {
   height: 100px;
-  border: solid black 1px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,23 +105,56 @@ src: url(font.ttf);
 
 #chart-container {
   height: 500px;
-  border: blue solid 1px;
   display: flex;
   position: relative;
 }
 
 #given-name {
-  height: 50px;
-  width: 150px;
-  border: solid green 1px;
+  height: 70px;
+  width: 300px;
+}
+
+.name {
+  font-size: 60px;
+  font-family: A Day Without Sun;
+  letter-spacing: 7px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.bar-container {
+  height: 400px;
+  width: 20px;
+  position: absolute;
+  bottom: 20px;
 }
 
 .bar {
-  height: 40px;
-  width: 10px;
-  border: black solid 3px;
+  width: 20px;
+  border: red solid 1px;
+  background-color: red;
   position: absolute;
   bottom: 40px;
+}
+
+.year-box {
+  height: 20px;
+  position: absolute;
+  bottom: 10px;
+  font-size: 20px;
+  font-family: Arial;
+  color: #787d77;
+}
+
+.number-box {
+  height: 20px;
+  width: 50px;
+  left: -5px;
+  position: absolute;
+  top: -40px;
+  transform: rotate(-45deg);
+  text-align: left;
+  font-family: Arial;
 }
 
 #back {
@@ -137,3 +164,50 @@ src: url(font.ttf);
   left: 10px;
   top: 10px;
 }
+
+.feedback {
+  font-size: 20px;
+  font-family: Arial;
+  text-align: center;
+  color: red;
+  margin-top: 15px;
+}
+
+#feedback-name-container {
+  height: 50px;
+}
+
+#feedback-sex-container {
+  height: 50px;
+}
+
+.axis {
+  border: black solid 1px;
+
+}
+
+#axis-x {
+  height: 2px;
+  width: 800px;
+  position: absolute;
+  bottom: 60px;
+}
+
+#axis-y {
+  height: 420px;
+  width: 2px;
+  position: absolute;
+  bottom: 0px;
+}
+
+#axis-y-container {
+  position: relative;
+  bottom: 60px;
+}
+
+.axis-label {
+  border-bottom: solid black 1px;
+  position: absolute;
+  left: -18px;
+}
+
