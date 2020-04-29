@@ -7,6 +7,7 @@ let childrenBorn = [378348, 368205, 353765, 351072, 356131, 364383, 374244, 3878
 let girlsBorn = [];
 let boysBorn = [];
 let numberOfPlaces = [];
+let numberOfYears = 20;
 
 
 
@@ -47,7 +48,6 @@ function showHomeScreen () {
 		chooseMaleButton ();
 		hideFeedbackSex ();
 	}
-	console.log(table);
 }
 
 function findName () {
@@ -94,6 +94,18 @@ function goToApplication () {
 	createBarsContainers ();
 	findName ();
 	createAxisLabels ();
+	createGridlines ();
+	fillInformation ();
+	enableInfoIcon ();
+	// let axisYTitile = document.getElementById('axis-y-title');
+	// axisYTitile.style.top = 
+}
+
+function enableInfoIcon () {
+	let informationIcon = document.getElementById('information-icon');
+	informationIcon.onclick = showInformation;
+	informationIcon.onmouseover = function () {informationIcon.style.top = '-50px'};
+	informationIcon.onmouseout = function () {informationIcon.style.top = '-45px'};
 }
 
 function saveSexM () {
@@ -137,6 +149,18 @@ function cleanUpApplication () {
 	let application = document.getElementById('application');
 	application.style.display = '';
 	removeBarContainers ();
+	hideInformation ();
+//	removeInfoNumberBox ();
+}
+
+function hideInformation () {
+	let info = document.getElementById("info-container");
+	info.style.display = 'none';
+}
+
+function showInformation () {
+	let info = document.getElementById("info-container");
+	info.style.display = '';
 }
 
 function cleanUpHomeScreen () {
@@ -163,7 +187,6 @@ function clearSexButton () {
 function saveInput () {
 	let input = document.getElementById('name-input');
 	name = input.value;
-	console.log(name);
 }
 
 function fillName () {
@@ -176,14 +199,24 @@ function createAxisLabels () {
 	for (let i=1; i<6; i++) {
 		let axisLabel = document.createElement('div');
 		axisYContainer.appendChild(axisLabel);
-		axisLabel.className = 'axis-label';
-		axisLabel.style.bottom = i*80 + 'px';
+		axisLabel.className = 'axis-label axis-y-color';
+		axisLabel.style.bottom = i*80 - 9 + 'px';
 		axisLabel.innerText = i*10;
 	}
 }
 
+function createGridlines () {
+	let chartContainer = document.getElementById('chart-container');
+	for (let i=1; i<6; i++) {
+		let gridline = document.createElement('div');
+		chartContainer.appendChild(gridline);
+		gridline.className = 'gridline';
+		gridline.style.bottom = i*80 + 'px';
+	}
+}
+
 function createBarsContainers () {
-	for (let i=0; i<20; i++) {
+	for (let i=0; i<numberOfYears; i++) {
 		createBarContainer (i);
 	}
 }
@@ -214,8 +247,36 @@ function createBar (barContainer, i) {
 	barContainer.appendChild(bar);
 	createNumberBox (bar, i);
 	let numberPer1000 = countPer1000 (i);
-	console.log ('numberPer1000', numberPer1000)
 	bar.style.height = numberPer1000 * 8 + 'px';
+	addBarImage (bar, numberPer1000);
+	if (i == numberOfYears-1) {
+		createInformationIcon (bar);
+		fillInfoIcon (i);
+	}
+}
+
+function fillInfoIcon (i) {
+	let number = countChildrenWithThisName (i);
+	let infoNumberIcon = document.getElementById('info-number-icon');
+	let numberBox = document.createElement('div');
+	numberBox.id = 'info-number-box'
+	numberBox.className = 'number-box';
+	infoNumberIcon.appendChild(numberBox);
+	fillNumberBox (numberBox, i)
+}
+
+function removeInfoNumberBox () {
+	let box = document.getElementById('info-number-box');
+	let infoNumberIcon = document.getElementById('info-number-icon');
+	infoNumberIcon.removeChild(box);
+}
+
+function addBarImage (bar, numberPer1000) {
+	let barImage = document.createElement('img');
+	bar.appendChild(barImage);
+	barImage.src = 'bar.png';
+	barImage.className = 'bar-image';
+	barImage.style.height = numberPer1000 * 8 + 'px';
 }
 
 function createYearBox (barContainer, i) {
@@ -223,20 +284,28 @@ function createYearBox (barContainer, i) {
 	yearBox.className = 'year-box';
 	barContainer.appendChild(yearBox);
 	if (i<10) {
-		yearBox.innerText = '0' + i;
+		yearBox.innerText = '\'' + '0' + i;
 	} else {
-		yearBox.innerText = i;
+		yearBox.innerText = '\'' + i;
 	}
 }
 
 function createNumberBox (bar, i) {
 	let numberBox = document.createElement('div');
-	numberBox.className = 'number-box';
+	numberBox.className = 'number-box chart-number-box';
 	bar.appendChild(numberBox);
 	fillNumberBox (numberBox, i)
 	let place = countPlace (i);
-	console.log ('place', place);
-	console.log ('childrenBorn', childrenBorn[i])
+}
+
+function createInformationIcon (bar) {
+	let informationIcon = document.createElement('img');
+	informationIcon.id = 'information-icon'
+	informationIcon.src = 'grey-i-icon.png'
+	informationIcon.className = "information-icon";
+	bar.appendChild(informationIcon);
+	informationIcon.style.left = '40px';
+	informationIcon.style.top = '-45px';
 }
 
 function fillNumberBox (numberBox, i) {
@@ -251,7 +320,6 @@ function countChildrenWithThisName (i) {
 			number = table[x][2]
 		}
 	}
-	console.log ('number', number)
 	return number
 }
 
@@ -278,7 +346,6 @@ function countAllPlaces (i) {
 			}
 		}
 	}
-	console.log (place)
 }
 
 // function countPlaces () {
@@ -319,6 +386,15 @@ function countPer1000 (i) {
   	}
   	let numberPer1000 = childrenWithThisName / allChildren * 1000;
   	return (numberPer1000)
+}
+
+function fillInformation () {
+	let infoNumberText = document.getElementById('info-number-text');
+	infoNumberText.innerText = 'Liczba nad słupkiem to liczba dzieci, które w danym roku zostały zarejestrowane jako ' + name + '.'
+	let infoBarText = document.getElementById('info-bar-text');
+	infoBarText.innerText = 'Wysokość słupka pokazuje, ile to dzieci na tysiąc. Możemy dzięki temu porównać, czy imię ' + name + ' zyskiwało czy traciło na popularności. Liczba urodzeń w poszczególnych latach różni się, dlatego dla miarodajnego porównania sprawdzamy liczbę dzieci o danym imieniu na tysiąc.'
+	let gusText = document.getElementById('gus-text');
+	gusText.innerText = 'Dane pochodzą ze strony Głównego Urzędu Statystycznego.';
 }
 
 

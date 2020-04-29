@@ -29,7 +29,7 @@ body {
 }
 
 #name-input {
-  height: 80px;
+  height: 100px;
   width: 300px;
 }
 
@@ -85,6 +85,10 @@ body {
   color: grey;
 }
 
+#check:hover {
+  color: black;
+}
+
 @font-face {
 font-family: A Day Without Sun;
 src: url(font.otf);
@@ -104,7 +108,7 @@ src: url(font.otf);
 }
 
 #chart-container {
-  height: 500px;
+  height: 450px;
   display: flex;
   position: relative;
 }
@@ -120,28 +124,32 @@ src: url(font.otf);
   letter-spacing: 7px;
   font-weight: bold;
   text-align: center;
+  color: var(--main-color);
 }
 
 .bar-container {
   height: 400px;
   width: 20px;
   position: absolute;
-  bottom: 20px;
+  bottom: 0px;
 }
 
 .bar {
   width: 20px;
-  border: red solid 1px;
-  background-color: red;
   position: absolute;
-  bottom: 40px;
+  bottom: 2px;
+  display: flex;
+}
+
+.bar-image {
+  width: 20px;
 }
 
 .year-box {
   height: 20px;
   position: absolute;
-  bottom: 10px;
-  font-size: 20px;
+  bottom: -25px;
+  font-size: 17px;
   font-family: Arial;
   color: #787d77;
 }
@@ -149,12 +157,15 @@ src: url(font.otf);
 .number-box {
   height: 20px;
   width: 50px;
-  left: -5px;
-  position: absolute;
-  top: -40px;
   transform: rotate(-45deg);
   text-align: left;
   font-family: Arial;
+}
+
+.chart-number-box {
+  left: -5px;
+  position: absolute;
+  top: -40px;
 }
 
 #back {
@@ -182,7 +193,7 @@ src: url(font.otf);
 }
 
 .axis {
-  border: black solid 1px;
+  border: grey solid 1px;
 
 }
 
@@ -190,7 +201,7 @@ src: url(font.otf);
   height: 2px;
   width: 800px;
   position: absolute;
-  bottom: 60px;
+  bottom: 0px;
 }
 
 #axis-y {
@@ -202,12 +213,153 @@ src: url(font.otf);
 
 #axis-y-container {
   position: relative;
-  bottom: 60px;
 }
 
 .axis-label {
-  border-bottom: solid black 1px;
   position: absolute;
-  left: -18px;
+  left: -25px;
+  font-size: 18px;
+  font-family: Arial;
 }
 
+.gridline {
+  border: solid #ececec 1px;
+  height: 1px;
+  width: 800px;
+  position: absolute;
+  z-index: -1;
+}
+
+#axis-y-title {
+  height: 30px;
+  width: 110px;
+  position: absolute;
+  top: calc(50% - 50px);
+  left: -100px;
+  transform: rotate(-90deg);
+  color: #539046;
+}
+
+#axis-x-title {
+  height: 30px;
+  width: 50px;
+  position: absolute;
+  bottom: -70px;
+  left: calc(50% - 25px);
+}
+
+.axis-title {
+  font-family: Arial;
+  color: #787d77;
+}
+
+.information-icon {
+  height: 30px;
+  width: 30px;
+}
+
+#information-icon {
+  position: absolute;
+}
+
+.information-icon:hover {
+  top: -50px;
+}
+
+#info-container {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  font-family: Arial;
+}
+
+#blank-space {
+  height: 60px;
+}
+
+#info-title {
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+}
+
+#information {
+  height: 30px;
+  width: 50px;
+  font-size: 20px;
+  margin-left: 20px;
+}
+
+#info-number-container {
+  height: 40px;
+  display: flex;
+  margin-bottom: 3px;
+  align-items: center;
+}
+
+#info-number-icon {
+  height: 30px;
+  display: flex;
+}
+
+#info-number-text {
+  margin-left: 10px;
+}
+
+#info-bar-container {
+  display: flex;
+  flex-direction: row;
+  height: 70px;
+  align-items: center;
+}
+
+#info-bar-icon-container {
+  height: 70px;
+}
+
+#info-bar-icon {
+  height: 70px;
+  width: 20px;
+}
+
+#info-bar-text {
+  height: 70px;
+  margin-left: 30px;
+}
+
+#gus-info-container {
+  display: flex;
+  flex-direction: row;
+  height: 70px;
+  margin-top: 20px;
+  align-items: center;
+}
+
+#gus-logo {
+  height: 68px;
+  width: 35px;
+}
+
+#gus-text {
+  margin-left: 10px;
+}
+
+.icon-box {
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-color {
+  color: #318b93;
+}
+
+.axis-y-color {
+  color: #539046;
+}
+
+.main-background-color {
+  background-color: #af3f3d;
+  border: #af3f3d;
+}
