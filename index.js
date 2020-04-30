@@ -187,7 +187,10 @@ function clearSexButton () {
 
 function saveInput () {
 	let input = document.getElementById('name-input');
-	name = input.value;
+	let str = input.value;
+	str.toUpperCase();
+	name = str.toUpperCase();
+	console.log(name);
 }
 
 function fillName () {
