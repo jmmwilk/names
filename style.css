@@ -269,7 +269,8 @@ src: url(font.otf);
 #info-container {
   display: flex;
   flex-direction: column;
-  height: 300px;
+  height: 350px;
+  justify-content: center;
   font-family: Arial;
 }
 
@@ -281,13 +282,13 @@ src: url(font.otf);
   display: flex;
   flex-direction: row;
   height: 50px;
+  align-items: center;
 }
 
 #information {
-  height: 30px;
   width: 50px;
   font-size: 20px;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 #info-number-container {
@@ -323,7 +324,6 @@ src: url(font.otf);
 }
 
 #info-bar-text {
-  height: 70px;
   margin-left: 30px;
 }
 

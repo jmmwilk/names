@@ -150,7 +150,8 @@ function cleanUpApplication () {
 	application.style.display = '';
 	removeBarContainers ();
 	hideInformation ();
-//	removeInfoNumberBox ();
+	removeInfoNumberBox ();
+	removeAxisLabels ();
 }
 
 function hideInformation () {
@@ -205,13 +206,21 @@ function createAxisLabels () {
 	}
 }
 
+function removeAxisLabels () {
+	let axisYContainer = document.getElementById('axis-y-container');
+	let axisLabels = document.getElementsByClassName('axis-label');
+	Array.from(axisLabels).forEach(function(axisLabel){
+		axisYContainer.removeChild(axisLabel);
+	})
+}
+
 function createGridlines () {
 	let chartContainer = document.getElementById('chart-container');
-	for (let i=1; i<6; i++) {
+	for (let i=1; i<11; i++) {
 		let gridline = document.createElement('div');
 		chartContainer.appendChild(gridline);
 		gridline.className = 'gridline';
-		gridline.style.bottom = i*80 + 'px';
+		gridline.style.bottom = i*40 + 'px';
 	}
 }
 
@@ -238,7 +247,6 @@ function removeBarContainers () {
 	Array.from(barContainers).forEach(function(barContainer) {
 	chartContainer.removeChild(barContainer);
 	})
-	
 }
 
 function createBar (barContainer, i) {
@@ -247,6 +255,10 @@ function createBar (barContainer, i) {
 	barContainer.appendChild(bar);
 	createNumberBox (bar, i);
 	let numberPer1000 = countPer1000 (i);
+	console.log(numberPer1000)
+	if (numberPer1000 === NaN) {
+		console.log('żaba')
+	}
 	bar.style.height = numberPer1000 * 8 + 'px';
 	addBarImage (bar, numberPer1000);
 	if (i == numberOfYears-1) {
@@ -260,15 +272,17 @@ function fillInfoIcon (i) {
 	let infoNumberIcon = document.getElementById('info-number-icon');
 	let numberBox = document.createElement('div');
 	numberBox.id = 'info-number-box'
-	numberBox.className = 'number-box';
+	numberBox.className = 'number-box info-number-box';
 	infoNumberIcon.appendChild(numberBox);
 	fillNumberBox (numberBox, i)
 }
 
 function removeInfoNumberBox () {
-	let box = document.getElementById('info-number-box');
 	let infoNumberIcon = document.getElementById('info-number-icon');
-	infoNumberIcon.removeChild(box);
+	let numberBoxes = document.getElementsByClassName('info-number-box')
+	Array.from(numberBoxes).forEach(function(numberBox) {
+	infoNumberIcon.removeChild(numberBox);
+	})
 }
 
 function addBarImage (bar, numberPer1000) {
