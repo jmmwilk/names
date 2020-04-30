@@ -250,21 +250,21 @@ function removeBarContainers () {
 }
 
 function createBar (barContainer, i) {
+	let numberPer1000 = countPer1000 (i);
+	if (String(numberPer1000) == 'NaN') {
+		return
+	}
 	let bar = document.createElement('div');
 	bar.className = 'bar';
 	barContainer.appendChild(bar);
 	createNumberBox (bar, i);
-	let numberPer1000 = countPer1000 (i);
-	console.log(numberPer1000)
-	if (numberPer1000 === NaN) {
-		console.log('żaba')
-	}
-	bar.style.height = numberPer1000 * 8 + 'px';
-	addBarImage (bar, numberPer1000);
 	if (i == numberOfYears-1) {
 		createInformationIcon (bar);
 		fillInfoIcon (i);
 	}
+	bar.style.height = numberPer1000 * 8 + 'px';
+	addBarImage (bar, numberPer1000);
+	
 }
 
 function fillInfoIcon (i) {
