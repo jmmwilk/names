@@ -28,7 +28,6 @@ function showHomeScreen () {
 	for (let z=0; z<20; z++) {
 		countAllPlaces (z);
 	}
-	
 	cleanUpHomeScreen ();
 	let checkButton = document.getElementById('check');
 	checkButton.onclick = check;
@@ -76,11 +75,15 @@ function chooseFemaleButton () {
 function check () {
 	if (sex == '') {
 		showFeedbackSex ();
+	}
+	console.log ('isThereThisName ()', isThereThisName ())
+	if (isNameFilled () == false) {
+		show1FeedbackName ();
 	} else {
-		if (isNameFilled () == false) {
-		showFeedback ();
+		if (isThereThisName () == false) {
+			show2FeedbackName ();
 		}
-		if (isNameFilled () == true) {
+		if (isThereThisName () == true && sex !== '') {
 			goToApplication ();
 		} 
 	}
@@ -118,9 +121,38 @@ function saveSexK () {
 
 function isNameFilled () {
 	let input = document.getElementById('name-input');
-// check if there is name in the file
-	return true
+	let givenName = input.value
+	if (input.value == '') {
+		return false
+	} else {
+		return true
+	}
+}
 
+function isThereThisName () {
+	let input = document.getElementById('name-input');
+	let str = input.value;
+	let givenName = str.toUpperCase();
+	console.log('givenname', givenName)
+	let answer = false;
+	for (let x=1; x<table.length; x++) {
+		if (table[x][1] == givenName) {
+			answer = true
+		}
+	}
+	return answer
+}
+
+function show2FeedbackName () {
+	let feedback = document.getElementById('feedback-name');
+	feedback.style.display = '';
+	feedback.innerText = 'Jeżeli od 2000 roku w żadnym roku nie dostało tego imienia więcej niż jedno dziecko, nie ma go w bazie GUS-u. Wyszukaj inne imię.'
+}
+
+function show1FeedbackName () {
+	let feedback = document.getElementById('feedback-name');
+	feedback.style.display = '';
+	feedback.innerText = 'Uzupełnij imię.'
 }
 
 function showFeedbackName () {
@@ -131,6 +163,7 @@ function showFeedbackName () {
 function hideFeedbackName () {
 	let feedback = document.getElementById('feedback-name');
 	feedback.style.display = 'none';
+	feedback.innerText = '';
 }
 
 function showFeedbackSex () {
@@ -190,7 +223,6 @@ function saveInput () {
 	let str = input.value;
 	str.toUpperCase();
 	name = str.toUpperCase();
-	console.log(name);
 }
 
 function fillName () {
