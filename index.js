@@ -309,7 +309,7 @@ function createYearBox (barContainer, i) {
 
 function createNumberBox (bar, i) {
 	let numberBox = document.createElement('div');
-	numberBox.className = 'number-box chart-number-box';
+	numberBox.className = 'number-box chart-number-box main-color';
 	bar.appendChild(numberBox);
 	fillNumberBox (numberBox, i)
 	let place = countPlace (i);
