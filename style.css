@@ -113,9 +113,15 @@ src: url(font.otf);
   position: relative;
 }
 
-#given-name {
+#chart-title {
   height: 70px;
   width: 300px;
+  font-size: 60px;
+  font-family: A Day Without Sun;
+  letter-spacing: 7px;
+  font-weight: bold;
+  text-align: center;
+  color: var(--main-color);
 }
 
 .name {

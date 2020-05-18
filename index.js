@@ -1,3 +1,5 @@
+import * as chart from './chart.js';
+
 'use strict';
 
 let name = '';
@@ -20,8 +22,6 @@ $.get( "./imiona.csv", function( data ) {
   	}
 });
 
-
-
 function showHomeScreen () {
 //	countPlaces ();
 //	countChildrenInYear2000 ();
@@ -29,6 +29,10 @@ function showHomeScreen () {
 		countAllPlaces (z);
 	}
 	cleanUpHomeScreen ();
+	enableHomescreenButtons ();
+}
+
+function enableHomescreenButtons () {
 	let checkButton = document.getElementById('check');
 	checkButton.onclick = check;
 	let back = document.getElementById('back');
@@ -90,16 +94,11 @@ function check () {
 }
 
 function goToApplication () {
-	saveInput ();
+	saveName ();
 	cleanUpApplication ();
-	saveInput ();
-	fillName ();
-	createBarsContainers ();
-	findName ();
-	createAxisLabels ();
-	createGridlines ();
-	fillInformation ();
-	enableInfoIcon ();
+	chart.createChart ();
+//	fillInformation ();
+//	enableInfoIcon ();
 	// let axisYTitile = document.getElementById('axis-y-title');
 	// axisYTitile.style.top = 
 }
@@ -218,89 +217,84 @@ function clearSexButton () {
 	maleButton.style.color = 'black';
 }
 
-function saveInput () {
+function saveName () {
 	let input = document.getElementById('name-input');
 	let str = input.value;
 	str.toUpperCase();
 	name = str.toUpperCase();
 }
 
-function fillName () {
-	let givenName = document.getElementById('given-name');
-	givenName.innerText = name;
-}
+// function createAxisLabels () {
+// 	let axisYContainer = document.getElementById('axis-y-container');
+// 	for (let i=1; i<6; i++) {
+// 		let axisLabel = document.createElement('div');
+// 		axisYContainer.appendChild(axisLabel);
+// 		axisLabel.className = 'axis-label axis-y-color';
+// 		axisLabel.style.bottom = i*80 - 9 + 'px';
+// 		axisLabel.innerText = i*10;
+// 	}
+// }
 
-function createAxisLabels () {
-	let axisYContainer = document.getElementById('axis-y-container');
-	for (let i=1; i<6; i++) {
-		let axisLabel = document.createElement('div');
-		axisYContainer.appendChild(axisLabel);
-		axisLabel.className = 'axis-label axis-y-color';
-		axisLabel.style.bottom = i*80 - 9 + 'px';
-		axisLabel.innerText = i*10;
-	}
-}
+// function removeAxisLabels () {
+// 	let axisYContainer = document.getElementById('axis-y-container');
+// 	let axisLabels = document.getElementsByClassName('axis-label');
+// 	Array.from(axisLabels).forEach(function(axisLabel){
+// 		axisYContainer.removeChild(axisLabel);
+// 	})
+// }
 
-function removeAxisLabels () {
-	let axisYContainer = document.getElementById('axis-y-container');
-	let axisLabels = document.getElementsByClassName('axis-label');
-	Array.from(axisLabels).forEach(function(axisLabel){
-		axisYContainer.removeChild(axisLabel);
-	})
-}
+// function createGridlines () {
+// 	let chartContainer = document.getElementById('chart-container');
+// 	for (let i=1; i<11; i++) {
+// 		let gridline = document.createElement('div');
+// 		chartContainer.appendChild(gridline);
+// 		gridline.className = 'gridline';
+// 		gridline.style.bottom = i*40 + 'px';
+// 	}
+// }
 
-function createGridlines () {
-	let chartContainer = document.getElementById('chart-container');
-	for (let i=1; i<11; i++) {
-		let gridline = document.createElement('div');
-		chartContainer.appendChild(gridline);
-		gridline.className = 'gridline';
-		gridline.style.bottom = i*40 + 'px';
-	}
-}
+// function createBarsContainers () {
+// 	for (let i=0; i<numberOfYears; i++) {
+// 		createBarContainer (i);
+// 	}
+// }
 
-function createBarsContainers () {
-	for (let i=0; i<numberOfYears; i++) {
-		createBarContainer (i);
-	}
-}
+// function createBarContainer (i) {
+// 	let barContainer = document.createElement('div');
+// 	barContainer.className = 'bar-container';
+// 	let chartContainer = document.getElementById('chart-container');
+// 	chartContainer.appendChild(barContainer);
+// 	barContainer.style.left = (10 + i*40) + 'px';
+// 	createBar (barContainer, i);
+// 	createYearBox (barContainer, i);
 
-function createBarContainer (i) {
-	let barContainer = document.createElement('div');
-	barContainer.className = 'bar-container';
-	let chartContainer = document.getElementById('chart-container');
-	chartContainer.appendChild(barContainer);
-	barContainer.style.left = (10 + i*40) + 'px';
-	createBar (barContainer, i);
-	createYearBox (barContainer, i);
+// }
 
-}
+// function removeBarContainers () {
+// 	let chartContainer = document.getElementById('chart-container');
+// 	let barContainers = document.getElementsByClassName('bar-container');
+// 	Array.from(barContainers).forEach(function(barContainer) {
+// 	chartContainer.removeChild(barContainer);
+// 	})
+// }
 
-function removeBarContainers () {
-	let chartContainer = document.getElementById('chart-container');
-	let barContainers = document.getElementsByClassName('bar-container');
-	Array.from(barContainers).forEach(function(barContainer) {
-	chartContainer.removeChild(barContainer);
-	})
-}
-
-function createBar (barContainer, i) {
-	let numberPer1000 = countPer1000 (i);
-	if (String(numberPer1000) == 'NaN') {
-		return
-	}
-	let bar = document.createElement('div');
-	bar.className = 'bar';
-	barContainer.appendChild(bar);
-	createNumberBox (bar, i);
-	if (i == numberOfYears-1) {
-		createInformationIcon (bar);
-		fillInfoIcon (i);
-	}
-	bar.style.height = numberPer1000 * 8 + 'px';
-	addBarImage (bar, numberPer1000);
+// function createBar (barContainer, i) {
+// 	let numberPer1000 = countPer1000 (i);
+// 	if (String(numberPer1000) == 'NaN') {
+// 		return
+// 	}
+// 	let bar = document.createElement('div');
+// 	bar.className = 'bar';
+// 	barContainer.appendChild(bar);
+// 	createNumberBox (bar, i);
+// 	if (i == numberOfYears-1) {
+// 		createInformationIcon (bar);
+// 		fillInfoIcon (i);
+// 	}
+// 	bar.style.height = numberPer1000 * 8 + 'px';
+// 	addBarImage (bar, numberPer1000);
 	
-}
+// }
 
 function fillInfoIcon (i) {
 	let number = countChildrenWithThisName (i);
@@ -328,24 +322,24 @@ function addBarImage (bar, numberPer1000) {
 	barImage.style.height = numberPer1000 * 8 + 'px';
 }
 
-function createYearBox (barContainer, i) {
-	let yearBox = document.createElement('div');
-	yearBox.className = 'year-box';
-	barContainer.appendChild(yearBox);
-	if (i<10) {
-		yearBox.innerText = '\'' + '0' + i;
-	} else {
-		yearBox.innerText = '\'' + i;
-	}
-}
+// function createYearBox (barContainer, i) {
+// 	let yearBox = document.createElement('div');
+// 	yearBox.className = 'year-box';
+// 	barContainer.appendChild(yearBox);
+// 	if (i<10) {
+// 		yearBox.innerText = '\'' + '0' + i;
+// 	} else {
+// 		yearBox.innerText = '\'' + i;
+// 	}
+// }
 
-function createNumberBox (bar, i) {
-	let numberBox = document.createElement('div');
-	numberBox.className = 'number-box chart-number-box main-color';
-	bar.appendChild(numberBox);
-	fillNumberBox (numberBox, i)
-	let place = countPlace (i);
-}
+// function createNumberBox (bar, i) {
+// 	let numberBox = document.createElement('div');
+// 	numberBox.className = 'number-box chart-number-box main-color';
+// 	bar.appendChild(numberBox);
+// 	fillNumberBox (numberBox, i)
+// 	let place = countPlace (i);
+// }
 
 function createInformationIcon (bar) {
 	let informationIcon = document.createElement('img');
