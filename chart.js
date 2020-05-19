@@ -1,30 +1,28 @@
 'use strict';
-let parent = document.getElementById('application');
-let axisXTitle = 'Rok';
-let axisYTitle = 'Na 1000 dzieci';
-let chartTitle = name
-let NrOfAxisXLabels = numberOfYears;
+
+// let chartTitle = name
+// let NrOfAxisXLabels = numberOfYears;
 
 
-export function createChart (parent, chartTitle, axisXTitle, axisYTitle) {
+export function createChart (parent, chartTitle, axisXTitle, axisYTitle, NrOfAxisXLabels, totalNumbers, numbers) {
 	cleanUpChart ();
 	createChartContainer (parent);
 	createChartTitle (chartTitle);
 	createAxises (axisXTitle, axisYTitle)
-	createBarsContainers ();
+	createBarsContainers (NrOfAxisXLabels, totalNumbers, numbers);
 	createAxisLabels ();
 	createGridlines ();
 }
 
 function cleanUpChart () {
 	removeBarContainers ();
-	removeAxisLabels ();
+	removeAxisYLabels ();
 }
 
 function createChartContainer (parent) {
 	let chart = document.createElement('div');
 	chart.id = 'chart-container';
-	parent.appendChild(chart)
+	parent.appendChild(chart);
 }
 
 function createChartTitle (chartTitleText) {
@@ -38,12 +36,12 @@ function createAxises (axisXTitle, axisYTitle) {
 	let axisX = document.createElement('div');
 	axisX.id = 'axis-x';
 	axisX.className = 'axis';
-	createAxisTitle (axisX, x, axisXTitle);
+	createAxisTitle (axisX, 'x', axisXTitle);
 
 	let axisY = document.createElement('div');
 	axisY.id = 'axis-y';
 	axisY.className = 'axis';
-	createAxisTitle (axisY, y, axisYTitle);
+	createAxisTitle (axisY, 'y', axisYTitle);
 }
 
 function createAxisTitle (axis, axisName, titleText) {
@@ -83,19 +81,19 @@ function createGridlines () {
 	}
 }
 
-function createBarsContainers () {
+function createBarsContainers (NrOfAxisXLabels, totalNumbers, numbers) {
 	for (let i=0; i<NrOfAxisXLabels; i++) {
-		createBarContainer (i);
+		createBarContainer (i, totalNumbers);
 	}
 }
 
-function createBarContainer (i) {
+function createBarContainer (i, totalNumbers, numbers) {
 	let barContainer = document.createElement('div');
 	barContainer.className = 'bar-container';
 	let chartContainer = document.getElementById('chart-container');
 	chartContainer.appendChild(barContainer);
 	barContainer.style.left = (10 + i*40) + 'px';
-	createBar (barContainer, i);
+	createBar (barContainer, i, totalNumbers);
 	createLabelXBox (barContainer, i);
 }
 
@@ -107,8 +105,8 @@ function removeBarContainers () {
 	})
 }
 
-function createBar (barContainer, i) {
-	let numberPer1000 = countPer1000 (i);
+function createBar (barContainer, i, totalNumbers, numbers) {
+	let numberPer1000 = countPer1000 (i, totalNumbers, numbers);
 	if (String(numberPer1000) == 'NaN') {
 		return
 	}
@@ -122,6 +120,17 @@ function createBar (barContainer, i) {
 	}
 	bar.style.height = numberPer1000 * 8 + 'px';
 	addBarImage (bar, numberPer1000);
+}
+
+function countPer1000 (i, totalNumbers, numbers) {
+	let childrenWithThisName;
+	for (let x=1; x<table.length; x++) {
+  		if (table[x][0] == i + 2000 && table[x][1] == name) {
+  			childrenWithThisName = parseInt(table[x][2]);
+  		}
+  	}
+  	let numberPer1000 = childrenWithThisName / totalNumbers[i] * 1000;
+  	return (numberPer1000)
 }
 
 function addBarImage (bar, numberPer1000) {
@@ -142,4 +151,5 @@ function createAxisXLabels (barContainer, i) {
 		axisXLabel.innerText = '\'' + i;
 	}
 }
+
 

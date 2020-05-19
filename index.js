@@ -1,8 +1,8 @@
 import * as chart from './chart.js';
 
 'use strict';
-
-let name = '';
+window.onload = showHomeScreen;
+let name = 'JAN';
 let sex = '';
 let table = [];
 let childrenBorn = [378348, 368205, 353765, 351072, 356131, 364383, 374244, 387873, 414499, 417589, 413300, 388416, 386257, 369576, 375160, 369308, 382257, 402000, 388200, 374800];
@@ -11,25 +11,49 @@ let boysBorn = [];
 let numberOfPlaces = [];
 let numberOfYears = 20;
 
-
+let parent = document.getElementById('application');
+let axisXTitle = 'Rok';
+let axisYTitle = 'Na 1000 dzieci';
+let chartTitle = 'JAKUB'
+let NrOfAxisXLabels = numberOfYears;
+let totalNumbers = childrenBorn
+let numbers = [1, 2];
 
 $.get( "./imiona.csv", function( data ) {
 	var results = Papa.parse(data);
 	table = results.data
-  	for (let i=1; i<table.length; i++) {
-  		if (table[i][1] == name) {
-  		}
-  	}
+		console.log(table);
+
 });
+
 
 function showHomeScreen () {
 //	countPlaces ();
 //	countChildrenInYear2000 ();
+	console.log('table', table);
+
+	findNrOfChildrenWithThisName ();
 	for (let z=0; z<20; z++) {
 		countAllPlaces (z);
 	}
 	cleanUpHomeScreen ();
 	enableHomescreenButtons ();
+}
+
+function findNrOfChildrenWithThisName () {
+	console.log(name)
+	console.log('TABLE', table)
+	for (let i=0; i<numberOfYears; i++) {
+		for (let x=1; x<table.length; x++) {
+	  		if (table[x][0] == i + 2000 && table[x][1] == name) {
+	  			console.log('porowa')
+	  			let childrenWithThisName = parseInt(table[x][2]);
+	  			numbers.push(childrenWithThisName)
+	  			console.log (childrenWithThisName)
+	  		}
+	  	}
+	}
+  	console.log (numbers)
 }
 
 function enableHomescreenButtons () {
@@ -96,7 +120,7 @@ function check () {
 function goToApplication () {
 	saveName ();
 	cleanUpApplication ();
-	chart.createChart ();
+	chart.createChart (parent, chartTitle, axisXTitle, axisYTitle, NrOfAxisXLabels, totalNumbers);
 //	fillInformation ();
 //	enableInfoIcon ();
 	// let axisYTitile = document.getElementById('axis-y-title');
@@ -180,10 +204,8 @@ function cleanUpApplication () {
 	homeScreen.style.display = 'none';
 	let application = document.getElementById('application');
 	application.style.display = '';
-	removeBarContainers ();
-	hideInformation ();
-	removeInfoNumberBox ();
-	removeAxisLabels ();
+//	hideInformation ();
+//	removeInfoNumberBox ();
 }
 
 function hideInformation () {
@@ -356,16 +378,6 @@ function fillNumberBox (numberBox, i) {
 	numberBox.innerText = number;
 }
 
-function countChildrenWithThisName (i) {
-	let number;
-	for (let x=1; x<table.length; x++) {
-		if (table[x][0] == 2000 + i && table[x][1] == name) {
-			number = table[x][2]
-		}
-	}
-	return number
-}
-
 function countPlace (i) {
 	let place = 1;
 	for (let x=1; x<table.length; x++) {
@@ -419,17 +431,6 @@ function countAllPlaces (i) {
 // 	console.log(number)
 // }
 
-function countPer1000 (i) {
-	let allChildren = childrenBorn[i];
-	let childrenWithThisName;
-	for (let x=1; x<table.length; x++) {
-  		if (table[x][0] == i + 2000 && table[x][1] == name) {
-  			childrenWithThisName = parseInt(table[x][2]);
-  		}
-  	}
-  	let numberPer1000 = childrenWithThisName / allChildren * 1000;
-  	return (numberPer1000)
-}
 
 function fillInformation () {
 	let infoNumberText = document.getElementById('info-number-text');
