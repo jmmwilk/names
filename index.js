@@ -19,12 +19,16 @@ let totalNumbers = childrenBorn
 let numbers = [];
 let axisXLabels = [];
 let axisYLabels = [10, 20, 30, 40, 50];
+let	textInInfoNumber = 'Liczba nad słupkiem to liczba dzieci, które w danym roku zostały zarejestrowane jako ' + name + '.'
+let	textInInfoBar = 'Wysokość słupka pokazuje, ile to dzieci na tysiąc. Możemy dzięki temu porównać, czy imię ' + name + ' zyskiwało czy traciło na popularności. Liczba urodzeń w poszczególnych latach różni się, dlatego dla miarodajnego porównania sprawdzamy liczbę dzieci o danym imieniu na tysiąc.'
+
 
 
 $.get( "./imiona.csv", function( data ) {
 	var results = Papa.parse(data);
 	table = results.data
-		showHomeScreen ()
+	console.log (table)
+	showHomeScreen ();
 });
 
 function showHomeScreen () {
@@ -113,9 +117,9 @@ function goToApplication () {
 	cleanUpApplication ();
 	numbers = [];
 	axisXLabels = years;
-	console.log(axisXLabels)
 	findNrOfChildrenWithThisName ();
-	chart.createChart (parent, chartTitle, axisXTitle, axisYTitle, axisXLabels, axisYLabels, NrOfAxisXLabels, NrOfAxisYLabels, totalNumbers, numbers);
+	console.log (numbers)
+	chart.createChart (parent, chartTitle, axisXTitle, axisYTitle, axisXLabels, axisYLabels, NrOfAxisXLabels, NrOfAxisYLabels, totalNumbers, numbers, textInInfoNumber, textInInfoBar);
 //	fillInformation ();
 //	enableInfoIcon ();
 	// let axisYTitile = document.getElementById('axis-y-title');
@@ -155,6 +159,7 @@ function isThereThisName () {
 	for (let x=1; x<table.length; x++) {
 		if (table[x][1] == givenName) {
 			answer = true
+			console.log('jest')
 		}
 	}
 	return answer
@@ -202,15 +207,15 @@ function cleanUpApplication () {
 //	removeInfoNumberBox ();
 }
 
-function hideInformation () {
-	let info = document.getElementById("info-container");
-	info.style.display = 'none';
-}
+// function hideInformation () {
+// 	let info = document.getElementById("info-container");
+// 	info.style.display = 'none';
+// }
 
-function showInformation () {
-	let info = document.getElementById("info-container");
-	info.style.display = '';
-}
+// function showInformation () {
+// 	let info = document.getElementById("info-container");
+// 	info.style.display = '';
+// }
 
 function cleanUpHomeScreen () {
 	name = '';
@@ -239,6 +244,7 @@ function saveName () {
 	str.toUpperCase();
 	name = str.toUpperCase();
 	chartTitle = name;
+	console.log ('chartTitle', chartTitle)
 }
 
 function createYearsTable () {
@@ -370,20 +376,20 @@ function addBarImage (bar, numberPer1000) {
 // 	let place = countPlace (i);
 // }
 
-function createInformationIcon (bar) {
-	let informationIcon = document.createElement('img');
-	informationIcon.id = 'information-icon'
-	informationIcon.src = 'grey-i-icon.png'
-	informationIcon.className = "information-icon";
-	bar.appendChild(informationIcon);
-	informationIcon.style.left = '40px';
-	informationIcon.style.top = '-45px';
-}
+// function createInformationIcon (bar) {
+// 	let informationIcon = document.createElement('img');
+// 	informationIcon.id = 'information-icon'
+// 	informationIcon.src = 'grey-i-icon.png'
+// 	informationIcon.className = "information-icon";
+// 	bar.appendChild(informationIcon);
+// 	informationIcon.style.left = '40px';
+// 	informationIcon.style.top = '-45px';
+// }
 
-function fillNumberBox (numberBox, i) {
-	let number = countChildrenWithThisName (i);
-	numberBox.innerText = number;
-}
+// function fillNumberBox (numberBox, i) {
+// 	let number = countChildrenWithThisName (i);
+// 	numberBox.innerText = number;
+// }
 
 function countPlace (i) {
 	let place = 1;
@@ -439,11 +445,7 @@ function countAllPlaces (i) {
 // }
 
 
-function fillInformation () {
-	let infoNumberText = document.getElementById('info-number-text');
-	infoNumberText.innerText = 'Liczba nad słupkiem to liczba dzieci, które w danym roku zostały zarejestrowane jako ' + name + '.'
-	let infoBarText = document.getElementById('info-bar-text');
-	infoBarText.innerText = 'Wysokość słupka pokazuje, ile to dzieci na tysiąc. Możemy dzięki temu porównać, czy imię ' + name + ' zyskiwało czy traciło na popularności. Liczba urodzeń w poszczególnych latach różni się, dlatego dla miarodajnego porównania sprawdzamy liczbę dzieci o danym imieniu na tysiąc.'
+function setInformationText () {
 	let gusText = document.getElementById('gus-text');
 	gusText.innerText = 'Dane pochodzą ze strony Głównego Urzędu Statystycznego.';
 }

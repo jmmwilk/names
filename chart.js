@@ -4,35 +4,57 @@
 // let NrOfAxisXLabels = numberOfYears;
 
 
-export function createChart (parent, chartTitle, axisXTitle, axisYTitle, axisXLabels, axisYLabels, NrOfAxisXLabels, NrOfAxisYLabels, totalNumbers, numbers) {
-	cleanUpChart ();
+export function createChart (parent, chartTitle, axisXTitle, axisYTitle, axisXLabels, axisYLabels, NrOfAxisXLabels, NrOfAxisYLabels, totalNumbers, numbers, textInInfoNumber, textInInfoBar) {
+	cleanUpChart (parent);
 	createChartContainer (parent, NrOfAxisXLabels);
 	createChartTitle (chartTitle);
 	createAxises (axisXTitle, axisYTitle, NrOfAxisXLabels, NrOfAxisYLabels)
+	createInformation (textInInfoNumber, textInInfoBar);
 	createBarsContainers (NrOfAxisXLabels, totalNumbers, numbers, axisXLabels);
 	createAxisYLabels (NrOfAxisYLabels, axisYLabels);
 	createGridlines (NrOfAxisXLabels, NrOfAxisYLabels);
+	hideInformation ();
+	enableInfoIcon ();
 }
 
-function cleanUpChart () {
-	removeBarContainers ();
-	removeAxisYLabels ();
+function cleanUpChart (parent) {
+	// removeBarContainers ();
+	// removeAxisYLabels ();
+	 removeInformation ();
+	// removeChartTitle ()
+	removeChartContainer (parent);
 }
 
 function createChartContainer (parent, NrOfAxisXLabels) {
 	let chart = document.createElement('div');
 	chart.id = 'chart-container';
+	chart.className = 'chart';
 	chart.style.width = NrOfAxisXLabels * 40 + 'px';
 	parent.appendChild(chart);
+}
+
+function removeChartContainer (parent) {
+	let chartContainers = document.getElementsByClassName('chart');
+	Array.from(chartContainers).forEach(function(chartContainer){
+		parent.removeChild(chartContainer);
+	})
 }
 
 function createChartTitle (chartTitleText) {
 	let chartTitle = document.createElement('div');
 	let chart = document.getElementById('chart-container');
 	chartTitle.id = 'chart-title';
-	chartTitle.className = 'main-color';
+	chartTitle.className = 'main-color chart-title';
 	chartTitle.innerText = chartTitleText;
 	chart.appendChild(chartTitle);
+}
+
+function removeChartTitle () {
+	let chart = document.getElementById('chart-container');
+	let chartTitles = document.getElementsByClassName('chart-title');
+	Array.from(chartTitles).forEach(function(chartTitle){
+		chart.removeChild(chartTitle);
+	})
 }
 
 function createAxises (axisXTitle, axisYTitle, NrOfAxisXLabels, NrOfAxisYLabels) {
@@ -124,8 +146,8 @@ function createBar (barContainer, NrOfAxisXLabels, i, totalNumbers, numbers) {
 	barContainer.appendChild(bar);
 	createNumberBox (bar, i, numbers);
 	if (i == NrOfAxisXLabels-1) {
-//		createInformationIcon (bar);
-//		fillInfoIcon (i);
+		createInformationIcon (bar);
+		fillInfoIcon (i, numbers);
 	}
 	bar.style.height = numberPer1000 * 8 + 'px';
 	addBarImage (bar, numberPer1000);
@@ -179,4 +201,112 @@ function createLabelXBox (barContainer, i, axisXLabels) {
 	labelXBox.className = 'label-x-box';
 	barContainer.appendChild(labelXBox);
 	labelXBox.innerText = axisXLabels[i];
+}
+
+function createInformationIcon (bar) {
+	let informationIcon = document.createElement('img');
+	informationIcon.id = 'information-icon'
+	informationIcon.src = 'grey-i-icon.png'
+	informationIcon.className = "information-icon";
+	bar.appendChild(informationIcon);
+	informationIcon.style.left = '40px';
+	informationIcon.style.top = '-45px';
+}
+
+function createInformation (textInInfoNumber, textInInfoBar) {
+	let application = document.getElementById('application');
+	let infoContainer = document.createElement('div');
+	infoContainer.id = 'info-container';
+	infoContainer.className = 'information';
+	application.appendChild(infoContainer);
+	createInfoTitle (infoContainer);
+	createInfoNumberContainer (infoContainer, textInInfoNumber);
+	createInfoBarContainer (infoContainer, textInInfoBar);
+}
+
+function createInfoBarContainer (infoContainer, textInInfoBar) {
+	let infoBarContainer = document.createElement('div');
+	infoBarContainer.id = 'info-bar-container';
+	infoContainer.appendChild(infoBarContainer);
+	let infoBarIconContainer = document.createElement('div');
+	infoBarIconContainer.id = 'info-bar-icon-container';
+	infoBarIconContainer.className = 'icon-box';
+	infoBarContainer.appendChild(infoBarIconContainer);
+	let infoBarIcon = document.createElement('img');
+	infoBarIcon.id = 'info-bar-icon';
+	infoBarIcon.src = 'bar.png';
+	infoBarIconContainer.appendChild(infoBarIcon);
+	let infoBarText = document.createElement('div');
+	infoBarText.id = 'info-bar-text';
+	infoBarText.innerText = textInInfoBar;
+	infoBarContainer.appendChild(infoBarText);
+}
+
+function createInfoNumberContainer (infoContainer, textInInfoNumber) {
+	let infoNumberContainer = document.createElement('div');
+	infoNumberContainer.id = 'info-number-container';
+	infoContainer.appendChild(infoNumberContainer);
+	let infoNumberIcon = document.createElement('div');
+	infoNumberIcon.id = ('info-number-icon');
+	infoNumberIcon.className = 'icon-box';
+	infoNumberContainer.appendChild(infoNumberIcon);
+	let infoNumberText = document.createElement('div');
+	infoNumberText.id = 'info-number-text';
+	infoNumberText.innerText = textInInfoNumber
+	infoNumberContainer.appendChild(infoNumberText);
+}
+
+function createInfoTitle (infoContainer) {
+	let infoTitle = document.createElement('div');
+	infoTitle.id = 'info-title';
+	infoContainer.appendChild(infoTitle);
+	let infoIconContainer = document.createElement('div');
+	infoIconContainer.id = 'info-icon-container';
+	infoIconContainer.className = 'icon-box';
+	infoTitle.appendChild(infoIconContainer);
+	let infoIcon = document.createElement('img');
+	infoIcon.id = 'information-icon-2';
+	infoIcon.src = 'i-icon.png';
+	infoIcon.className = 'information-icon';
+	infoIconContainer.appendChild(infoIcon);
+	let info = document.createElement('div');
+	info.id = 'information';
+	info.innerText = 'Informacja';
+	infoTitle.appendChild(info);
+}
+
+function fillInfoIcon (i, numbers) {
+	let number = numbers[i];
+	let infoNumberIcon = document.getElementById('info-number-icon');
+	let numberBox = document.createElement('div');
+	numberBox.id = 'info-number-box'
+	numberBox.className = 'number-box info-number-box main-color';
+	infoNumberIcon.appendChild(numberBox);
+	fillNumberBox (numberBox, i, numbers)
+}
+
+function enableInfoIcon () {
+	let informationIcon = document.getElementById('information-icon');
+	informationIcon.onclick = showInformation;
+	informationIcon.onmouseover = function () {informationIcon.style.top = '-50px'};
+	informationIcon.onmouseout = function () {informationIcon.style.top = '-45px'};
+}
+
+function hideInformation () {
+	let info = document.getElementById('info-container');
+	info.style.display = 'none';
+}
+
+function showInformation () {
+	let info = document.getElementById('info-container');
+	info.style.display = '';
+	console.log('dupa zbita')
+}
+
+function removeInformation () {
+	let application = document.getElementById('application');
+	let informations = document.getElementsByClassName('information');
+	Array.from(informations).forEach(function(information){
+		application.removeChild(information);
+	})
 }
