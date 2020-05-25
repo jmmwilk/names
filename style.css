@@ -108,7 +108,7 @@ src: url(font.otf);
 }
 
 #chart-container {
-  height: 450px;
+  height: 500px;
   display: flex;
   position: relative;
 }
@@ -121,7 +121,9 @@ src: url(font.otf);
   letter-spacing: 7px;
   font-weight: bold;
   text-align: center;
-  color: var(--main-color);
+  position: absolute;
+  left: calc(50% - 150px);
+  top: 1px;
 }
 
 .name {
@@ -151,7 +153,7 @@ src: url(font.otf);
   width: 20px;
 }
 
-.year-box {
+.label-x-box {
   height: 20px;
   position: absolute;
   bottom: -25px;
@@ -205,13 +207,11 @@ src: url(font.otf);
 
 #axis-x {
   height: 2px;
-  width: 800px;
   position: absolute;
   bottom: 0px;
 }
 
 #axis-y {
-  height: 420px;
   width: 2px;
   position: absolute;
   bottom: 0px;
@@ -231,7 +231,6 @@ src: url(font.otf);
 .gridline {
   border: solid #ececec 1px;
   height: 1px;
-  width: 800px;
   position: absolute;
   z-index: -1;
 }

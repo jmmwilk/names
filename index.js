@@ -1,59 +1,51 @@
 import * as chart from './chart.js';
 
 'use strict';
-window.onload = showHomeScreen;
 let name = 'JAN';
 let sex = '';
 let table = [];
 let childrenBorn = [378348, 368205, 353765, 351072, 356131, 364383, 374244, 387873, 414499, 417589, 413300, 388416, 386257, 369576, 375160, 369308, 382257, 402000, 388200, 374800];
-let girlsBorn = [];
-let boysBorn = [];
-let numberOfPlaces = [];
+//let numberOfPlaces = [];
 let numberOfYears = 20;
+let years = [];
 
 let parent = document.getElementById('application');
 let axisXTitle = 'Rok';
 let axisYTitle = 'Na 1000 dzieci';
-let chartTitle = 'JAKUB'
+let chartTitle = '';
 let NrOfAxisXLabels = numberOfYears;
+let NrOfAxisYLabels = 5;
 let totalNumbers = childrenBorn
-let numbers = [1, 2];
+let numbers = [];
+let axisXLabels = [];
+let axisYLabels = [10, 20, 30, 40, 50];
+
 
 $.get( "./imiona.csv", function( data ) {
 	var results = Papa.parse(data);
 	table = results.data
-		console.log(table);
-
+		showHomeScreen ()
 });
-
 
 function showHomeScreen () {
 //	countPlaces ();
-//	countChildrenInYear2000 ();
-	console.log('table', table);
-
-	findNrOfChildrenWithThisName ();
 	for (let z=0; z<20; z++) {
 		countAllPlaces (z);
 	}
 	cleanUpHomeScreen ();
 	enableHomescreenButtons ();
+	createYearsTable ();
 }
 
 function findNrOfChildrenWithThisName () {
-	console.log(name)
-	console.log('TABLE', table)
 	for (let i=0; i<numberOfYears; i++) {
 		for (let x=1; x<table.length; x++) {
 	  		if (table[x][0] == i + 2000 && table[x][1] == name) {
-	  			console.log('porowa')
 	  			let childrenWithThisName = parseInt(table[x][2]);
 	  			numbers.push(childrenWithThisName)
-	  			console.log (childrenWithThisName)
 	  		}
 	  	}
 	}
-  	console.log (numbers)
 }
 
 function enableHomescreenButtons () {
@@ -104,7 +96,6 @@ function check () {
 	if (sex == '') {
 		showFeedbackSex ();
 	}
-	console.log ('isThereThisName ()', isThereThisName ())
 	if (isNameFilled () == false) {
 		show1FeedbackName ();
 	} else {
@@ -120,7 +111,11 @@ function check () {
 function goToApplication () {
 	saveName ();
 	cleanUpApplication ();
-	chart.createChart (parent, chartTitle, axisXTitle, axisYTitle, NrOfAxisXLabels, totalNumbers);
+	numbers = [];
+	axisXLabels = years;
+	console.log(axisXLabels)
+	findNrOfChildrenWithThisName ();
+	chart.createChart (parent, chartTitle, axisXTitle, axisYTitle, axisXLabels, axisYLabels, NrOfAxisXLabels, NrOfAxisYLabels, totalNumbers, numbers);
 //	fillInformation ();
 //	enableInfoIcon ();
 	// let axisYTitile = document.getElementById('axis-y-title');
@@ -156,7 +151,6 @@ function isThereThisName () {
 	let input = document.getElementById('name-input');
 	let str = input.value;
 	let givenName = str.toUpperCase();
-	console.log('givenname', givenName)
 	let answer = false;
 	for (let x=1; x<table.length; x++) {
 		if (table[x][1] == givenName) {
@@ -244,6 +238,19 @@ function saveName () {
 	let str = input.value;
 	str.toUpperCase();
 	name = str.toUpperCase();
+	chartTitle = name;
+}
+
+function createYearsTable () {
+	for (let i=0; i<numberOfYears; i++) {
+		let year;
+		if (i<10) {
+			year = '\'' + '0' + i;
+		} else {
+			year = '\'' + i;
+		}
+		years.push(year)
+	}
 }
 
 // function createAxisLabels () {
